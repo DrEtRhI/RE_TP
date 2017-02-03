@@ -1,0 +1,6 @@
+algo de connection (serveur) :
+Création de la socket (h_socket), sortie : id de la socket
+	- AF_INET : protocole internet
+	- SOCK_STREAM : mode connecte (TCP/AF_INET)
+	
+	
