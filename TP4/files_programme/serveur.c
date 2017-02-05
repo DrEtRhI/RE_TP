@@ -9,10 +9,10 @@
 /*		Auteurs :  ....						      */
 /*		Date :  ....						      */
 /*									      */
-/******************************************************************************/	
+/******************************************************************************/
 
 #include<stdio.h>
-#include <curses.h>
+//#include <curses.h>
 
 #include<sys/signal.h>
 #include<sys/wait.h>
@@ -28,7 +28,7 @@
 void serveur_appli (char *service);   /* programme serveur */
 
 
-/******************************************************************************/	
+/******************************************************************************/
 /*---------------- programme serveur ------------------------------*/
 
 int main(int argc,char *argv[])
@@ -54,12 +54,12 @@ int main(int argc,char *argv[])
 
 	/* service est le service (ou numéro de port) auquel sera affecté
 	ce serveur*/
-	
+
 	serveur_appli(service);
 }
 
 
-/******************************************************************************/	
+/******************************************************************************/
 void serveur_appli(char *service)
 
 /* Procedure correspondant au traitemnt du serveur de votre application */
@@ -69,7 +69,7 @@ void serveur_appli(char *service)
 	struct sockaddr_in *p_adr_socket, *p_adr_client;
 	pid_t p;
 	char tampon[NB_OCTETS];
-	
+
 	/*CrÈation de la socket protocole internet et mode de connection*/
 	idSocket = h_socket(AF_INET, SOCK_STREAM);
 
@@ -83,16 +83,16 @@ void serveur_appli(char *service)
 	h_listen(idSocket, NB_REQ_MAX);
 
 	while(1){
-		
+
 		/*Accepte la connexion client sur la socket du serveur*/
 		idSocketAccept = h_accept(idSocket, p_adr_client);
 		p = fork();
 		if (p == 0){
 			h_close(idSocket); /*Fermeture de la socket passive*/
-			
+
 
 			/* DÈbut de la partie */
-			strcpy(tampon, "Bienvenue sur MASTERMIND !!\n\nCombien de couleurs voulez vous jouer ? (min 4 max 8) :\n");			
+			strcpy(tampon, "Bienvenue sur MASTERMIND !!\n\nCombien de couleurs voulez vous jouer ? (min 4 max 8) :\n");
 			writeServeur = h_writes(idSocketAccept, tampon, NB_OCTETS);
 			readServeur = h_reads(idSocketAccept, tampon, NB_OCTETS);
 			printf("%s", tampon);
@@ -106,5 +106,5 @@ void serveur_appli(char *service)
 
 }
 
-/******************************************************************************/	
+/******************************************************************************/
 

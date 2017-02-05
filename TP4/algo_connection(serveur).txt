@@ -3,4 +3,5 @@ Création de la socket (h_socket), sortie : id de la socket
 	- AF_INET : protocole internet
 	- SOCK_STREAM : mode connecte (TCP/AF_INET)
 	
+execution de bind avec la struct sockaddr_in allouée pour associer la socket et ses adresse IP
 	
