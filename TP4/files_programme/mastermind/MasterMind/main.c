@@ -52,8 +52,16 @@ int main(int argc, char** argv) {
         computerChoice = (int*) malloc(difficulty * sizeof (int));
 
         // pour la génération de nombre aléatoire
-        GenerationGameTableNoRepet(computerChoice, difficulty);
-
+        GenerationGameTableRepet(computerChoice, difficulty);
+        
+        for (int i = 0; i < difficulty; i++){
+        if (i + 1 == difficulty){
+            printf("|%d|\n", computerChoice[i]);
+        }else{
+            printf("|%d", computerChoice[i]);
+        }
+    }
+        
         printf("\n\nVous avez 20 essai maximum pour trouver la bonne combinaison\n");
         int essai = 0;
 
@@ -64,7 +72,7 @@ int main(int argc, char** argv) {
             printf("Choissez vos couleurs parmis bleu, rouge, blanc, noir, vert, jaune, orange, violet :\n");
 
             for (int i = 0; i < difficulty; i++) {
-                printf("Entrez la couleur %d :\n", i + 1);
+                printf("Entrez la couleur %d : ", i + 1);
                 scanf("%d", &userChoiceInt[i]);
             }
             EvaluationEssai(computerChoice, userChoiceInt, &bienPlace, &malPlace, difficulty);

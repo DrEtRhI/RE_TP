@@ -19,13 +19,13 @@ void GenerationGameTableNoRepet(int *tab, int difficulty) {
     randomColor = rand() % TOTALCOLOR;
     tab[0] = randomColor;
     for (int i = 1; i < difficulty; i++){
-        randomColor = rand() % difficulty;
+        randomColor = rand() % TOTALCOLOR;
         tab[i] = randomColor;
         while (z < i){
             if (tab[i] != tab[z]){
                 z++;
             }else{
-                tab[i] = rand() % difficulty;
+                tab[i] = rand() % TOTALCOLOR;
                 z = 0;
             }
         }
@@ -37,18 +37,25 @@ void GenerationGameTableRepet(int *tab, int difficulty) {
     srand(time(NULL));
     for (int i = 0; i < difficulty; i++) {
         int randomColor;
-        randomColor = rand() % difficulty;
+        randomColor = rand() % TOTALCOLOR;
         tab[i] = randomColor;
     }
 }
 
 void EvaluationEssai(int *tabComputer, int *tabUser, int *bienPlace, int *malPlace, int difficulte){
+    int *copyTab;
+    copyTab = (int*) malloc (difficulte * sizeof(int));
+    for (int b = 0; b < difficulte; b++){
+        copyTab[b] = tabComputer[b];
+    }
     for (int i = 0; i < difficulte; i++){
         for (int z = 0; z < difficulte; z++){
-            if (tabComputer[i] == tabUser[z] && i == z){
-                *bienPlace = *bienPlace + 1;
-            }else if (tabComputer[i] == tabUser[z] && i != z){
-                *malPlace = *malPlace + 1;
+            if (copyTab[i] == tabUser[z] && i == z){
+                (*bienPlace)++;
+                copyTab[i] = -1;
+            }else if (copyTab[i] == tabUser[z] && i != z){
+                (*malPlace)++;
+                copyTab[i] = -1;
             }
         }
     }
