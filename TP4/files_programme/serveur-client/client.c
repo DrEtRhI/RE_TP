@@ -93,7 +93,7 @@ void client_appli (char *serveur,char *service)
 	
 	readClient = h_reads(idSocket, tampon, NB_OCTETS);
 	printf("%s", tampon);
-	scanf("%s", &tampon);
+	scanf("%s", tampon);
 	writeClient = h_writes(idSocket, tampon, NB_OCTETS);
 
 

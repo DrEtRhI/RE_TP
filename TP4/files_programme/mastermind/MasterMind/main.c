@@ -54,7 +54,7 @@ int main(int argc, char** argv) {
         computerChoice = (int*) malloc(difficulty * sizeof (int));
 
         // pour la génération de nombre aléatoire
-        GenerationGameTableRepet(computerChoice, difficulty);
+        generationGameTableRepet(computerChoice, difficulty);
 
         // ********** Pour le TEST, affichage du computerTab au début de la partie. **********
         for (int i = 0; i < difficulty; i++) {
@@ -80,7 +80,7 @@ int main(int argc, char** argv) {
                 scanf("%d", &userChoiceInt[i]);
             }
 
-            EvaluationEssai(computerChoice, userChoiceInt, &bienPlace, &malPlace, difficulty);
+            evaluationEssai(computerChoice, userChoiceInt, &bienPlace, &malPlace, difficulty);
 
             // recopie de l'essai dans le tableau récapitulatif :
             for (int i = 0; i < difficulty; i++) {
@@ -89,7 +89,7 @@ int main(int argc, char** argv) {
             tabRecap.malPlace[essai] = malPlace;
             tabRecap.bienPlace[essai] = bienPlace;
             
-            AffichageEssais(tabRecap, difficulty, essai);
+            affichageEssais(tabRecap, difficulty, essai);
 
             essai++;
             if (essai == 20 || bienPlace == difficulty) {

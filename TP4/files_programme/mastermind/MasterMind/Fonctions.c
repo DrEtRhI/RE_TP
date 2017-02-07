@@ -14,7 +14,7 @@
 
 // Generation du tableau de couleur à trouver SANS possibilité de répétition de couleur.
 
-void GenerationGameTableNoRepet(int *tab, int difficulty) {
+void generationGameTableNoRepet(int *tab, int difficulty) {
     srand(time(NULL));
     int z = 0;
     // allocation de la première case du tableau. 
@@ -37,7 +37,7 @@ void GenerationGameTableNoRepet(int *tab, int difficulty) {
 }
 // Generation du tableau de couleur à trouver AVEC possibilité de répétition de couleur.
 
-void GenerationGameTableRepet(int *tab, int difficulty) {
+void generationGameTableRepet(int *tab, int difficulty) {
     srand(time(NULL));
     for (int i = 0; i < difficulty; i++) {
         int randomColor;
@@ -46,7 +46,11 @@ void GenerationGameTableRepet(int *tab, int difficulty) {
     }
 }
 
-void EvaluationEssai(int *tabComputer, int *tabUser, int *bienPlace, int *malPlace, int difficulte) {
+int verifierSaisie(){
+    
+}
+
+void evaluationEssai(int *tabComputer, int *tabUser, int *bienPlace, int *malPlace, int difficulte) {
     // Copie du tableau-Computer pour remplacer les couleurs traitées par -1 par la suite. Cela évite un double traitement.
     int *copyTab;
     copyTab = (int*) malloc(difficulte * sizeof (int));
@@ -74,7 +78,7 @@ void EvaluationEssai(int *tabComputer, int *tabUser, int *bienPlace, int *malPla
     free(copyTab); // Libération du tableau CopyTab.
 }
 
-void AffichageEssais(tabRecap recap, int difficulte, int essai) {
+void affichageEssais(tabRecap recap, int difficulte, int essai) {
     for (int i = 0; i <= essai; i++) {
         for (int y = 0; y < difficulte; y++) {
             if (y + 1 == difficulte) {
