@@ -19,7 +19,7 @@ extern "C" {
 #endif
 
     typedef struct tabRecap {
-        int tabEssais[20][7];
+        int tabEssais[20][8];
         int bienPlace[20];
         int malPlace[20];
     } tabRecap;
@@ -33,7 +33,6 @@ extern "C" {
     void GenerationGameTableNoRepet(int *tab, int difficulty);
     void GenerationGameTableRepet(int *tab, int difficulty);
     void EvaluationEssai(int *tabComputer, int *tabUser, int *bienPlace, int *malPlace, int difficulte);
-    void AffichageEssai(int *tabUser, int bienPlace, int malPlace, int difficulte);
     void AffichageEssais(tabRecap, int, int);
 
 #ifdef __cplusplus

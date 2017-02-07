@@ -90,8 +90,7 @@ int main(int argc, char** argv) {
             tabRecap.bienPlace[essai] = bienPlace;
             
             AffichageEssais(tabRecap, difficulty, essai);
-            
-            //AffichageEssai(userChoiceInt, bienPlace, malPlace, difficulty);
+
             essai++;
             if (essai == 20 || bienPlace == difficulty) {
                 if (essai == 20) {

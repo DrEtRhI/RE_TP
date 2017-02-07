@@ -74,37 +74,19 @@ void EvaluationEssai(int *tabComputer, int *tabUser, int *bienPlace, int *malPla
     free(copyTab); // Libération du tableau CopyTab.
 }
 
-void AffichageEssai(int *userTab, int bienPlace, int malPlace, int difficulte) {
-    for (int i = 0; i < difficulte; i++) {
-        if (i + 1 == difficulte) {
-            printf("|%d|", userTab[i]);
-        } else {
-            printf("|%d", userTab[i]);
-        }
-    }
-    printf("  => Bien placé(s) : %d", bienPlace);
-    printf(", Mal placé(s) : %d\n", malPlace);
-}
-
 void AffichageEssais(tabRecap recap, int difficulte, int essai) {
     for (int i = 0; i <= essai; i++) {
         for (int y = 0; y < difficulte; y++) {
-            printf("|%d|",recap.tabEssais[i][y]);
+            if (y + 1 == difficulte) {
+                printf("|%d|", recap.tabEssais[i][y]);
+            } else {
+                printf("|%d", recap.tabEssais[i][y]);
+            }
         }
         printf("  => Bien placé(s) : %d", recap.bienPlace[i]);
         printf(", Mal placé(s) : %d\n", recap.malPlace[i]);
 
     }
-    /*
-        for (int i = 0; i < difficulte; i++) {
-            if (i + 1 == difficulte) {
-                printf("|%d|", userTab[i]);
-            } else {
-                printf("|%d", userTab[i]);
-            }
-        }
-     */
-
 }
 
 /*
