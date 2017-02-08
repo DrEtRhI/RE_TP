@@ -8,23 +8,26 @@
 #include <stdlib.h>
 #include <time.h>
 #include "Constante.h"
+#include "Fonctions.h"
 
 #define TOTALCOLOR 8;
 
-void GenerationGameTableNoRepet(int *tab, int difficulty) {
+// Generation du tableau de couleur à trouver SANS possibilité de répétition de couleur.
+
+void generationGameTableNoRepet(int *tab, int difficulty) {
     srand(time(NULL));
     int z = 0;
     // allocation de la première case du tableau. 
     int randomColor;
     randomColor = rand() % TOTALCOLOR;
     tab[0] = randomColor;
-    for (int i = 1; i < difficulty; i++){
+    for (int i = 1; i < difficulty; i++) {
         randomColor = rand() % TOTALCOLOR;
         tab[i] = randomColor;
-        while (z < i){
-            if (tab[i] != tab[z]){
+        while (z < i) {
+            if (tab[i] != tab[z]) {
                 z++;
-            }else{
+            } else {
                 tab[i] = rand() % TOTALCOLOR;
                 z = 0;
             }
@@ -32,8 +35,9 @@ void GenerationGameTableNoRepet(int *tab, int difficulty) {
         z = 0;
     }
 }
+// Generation du tableau de couleur à trouver AVEC possibilité de répétition de couleur.
 
-void GenerationGameTableRepet(int *tab, int difficulty) {
+void generationGameTableRepet(int *tab, int difficulty) {
     srand(time(NULL));
     for (int i = 0; i < difficulty; i++) {
         int randomColor;
@@ -42,35 +46,51 @@ void GenerationGameTableRepet(int *tab, int difficulty) {
     }
 }
 
-void EvaluationEssai(int *tabComputer, int *tabUser, int *bienPlace, int *malPlace, int difficulte){
+int verifierSaisie(){
+    
+}
+
+void evaluationEssai(int *tabComputer, int *tabUser, int *bienPlace, int *malPlace, int difficulte) {
+    // Copie du tableau-Computer pour remplacer les couleurs traitées par -1 par la suite. Cela évite un double traitement.
     int *copyTab;
-    copyTab = (int*) malloc (difficulte * sizeof(int));
-    for (int b = 0; b < difficulte; b++){
+    copyTab = (int*) malloc(difficulte * sizeof (int));
+    for (int b = 0; b < difficulte; b++) {
         copyTab[b] = tabComputer[b];
     }
-    for (int i = 0; i < difficulte; i++){
-        for (int z = 0; z < difficulte; z++){
-            if (copyTab[i] == tabUser[z] && i == z){
-                (*bienPlace)++;
-                copyTab[i] = -1;
-            }else if (copyTab[i] == tabUser[z] && i != z){
+    // Evalutation en premier des couleurs bien placées.
+    // ---> Si la couleur est bien placée, incrémentation de la variable bienPlace et remplacement dans copyTab par -1.
+    for (int i = 0; i < difficulte; i++) {
+        if (copyTab[i] == tabUser[i]) {
+            (*bienPlace)++;
+            copyTab[i] = -1;
+        }
+    }
+    // Evalutation des couleurs mal placées.
+    // ---> Si la couleur est mal placée, incrémentation de la variable malPlacee et remplacement dans copyTab par -1.
+    for (int i = 0; i < difficulte; i++) {
+        for (int z = 0; z < difficulte; z++) {
+            if (copyTab[i] == tabUser[z]) { // Ici, pas besoin de vérifier i == z car ce cas est traité précédement. (remplacement par -1).
                 (*malPlace)++;
                 copyTab[i] = -1;
             }
         }
     }
+    free(copyTab); // Libération du tableau CopyTab.
 }
 
-void AffichageEssai(int *userTab, int bienPlace, int malPlace, int difficulte){
-    for (int i = 0; i < difficulte; i++){
-        if (i + 1 == difficulte){
-            printf("|%d|", userTab[i]);
-        }else{
-            printf("|%d", userTab[i]);
+void affichageEssais(tabRecap recap, int difficulte, int essai) {
+    for (int i = 0; i <= essai; i++) {
+        for (int y = 0; y < difficulte; y++) {
+            if (y + 1 == difficulte) {
+                printf("|%d|", recap.tabEssais[i][y]);
+            } else {
+                printf("|%d", recap.tabEssais[i][y]);
+            }
         }
+        printf("  => Bien placé(s) : %d", recap.bienPlace[i]);
+        printf(", Mal placé(s) : %d\n", recap.malPlace[i]);
+
     }
-    printf("  => Bien placé(s) : %d", bienPlace);
-    printf(", Mal placé(s) : %d\n", malPlace);
 }
 
 /*

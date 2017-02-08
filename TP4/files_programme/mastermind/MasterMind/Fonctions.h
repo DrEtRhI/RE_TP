@@ -18,17 +18,22 @@
 extern "C" {
 #endif
 
-/**
- * Fonction permettant de générer de façon aléatoire la combinaison de couleur
- * à découvrir
- * @param tab tableau dans lequel seront ajoutées les couleurs
- * @param difficulty nombre de couleur à choisir
- */
-void GenerationGameTableNoRepet(int *tab, int difficulty);
-void GenerationGameTableRepet(int *tab, int difficulty);
-void EvaluationEssai(int *tabComputer, int *tabUser, int *bienPlace, int *malPlace, int difficulte);
-void AffichageEssai(int *tabUser, int bienPlace, int malPlace, int difficulte);
+    typedef struct tabRecap {
+        int tabEssais[20][8];
+        int bienPlace[20];
+        int malPlace[20];
+    } tabRecap;
 
+    /**
+     * Fonction permettant de générer de façon aléatoire la combinaison de couleur
+     * à découvrir
+     * @param tab tableau dans lequel seront ajoutées les couleurs
+     * @param difficulty nombre de couleur à choisir
+     */
+    void generationGameTableNoRepet(int *tab, int difficulty);
+    void generationGameTableRepet(int *tab, int difficulty);
+    void evaluationEssai(int *tabComputer, int *tabUser, int *bienPlace, int *malPlace, int difficulte);
+    void affichageEssais(tabRecap, int, int);
 
 #ifdef __cplusplus
 }
