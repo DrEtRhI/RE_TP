@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Fonctions.h"
-
+#define NB_OCTETS 1000
 
 
 /*
@@ -30,7 +30,8 @@ int main(int argc, char** argv) {
     int difficulty = 0;
     int newParty = 0;
     tabRecap tabRecap;
-
+    char *tampon = (char*) malloc (NB_OCTETS * sizeof(char));
+    
 
     printf("Bienvenue sur MASTERMIND !!\n\n\n");
     printf("Détailler les règles du jeu :\n\n");
@@ -91,7 +92,9 @@ int main(int argc, char** argv) {
             tabRecap.malPlace[essai] = malPlace;
             tabRecap.bienPlace[essai] = bienPlace;
             
-            affichageEssais(tabRecap, difficulty, essai);
+            //affichageEssais(tabRecap, difficulty, essai);
+            EssaisToBuff(tabRecap, difficulty, essai, tampon);
+            printf("%s", tampon);
 
             essai++;
             if (essai == 20 || bienPlace == difficulty) {
