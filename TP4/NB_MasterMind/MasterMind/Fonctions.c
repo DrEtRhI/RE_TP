@@ -96,7 +96,7 @@ void affichageEssais(tabRecap recap, int difficulte, int essai) {
 }
 // Vide le buffer et le rempli avec une chaine de caractère contenant toutes les informations de l'essai
 void EssaisToBuff(tabRecap recap, int difficulte, int essai, char* tampon) {
-    tampon = "";
+    strcpy(tampon, "");
     char* temp = (char*) malloc (sizeof(char)*50);
     
     for (int i = 0; i <= essai; i++) {

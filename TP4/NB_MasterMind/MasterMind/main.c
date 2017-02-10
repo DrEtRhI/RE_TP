@@ -95,7 +95,7 @@ int main(int argc, char** argv) {
             //affichageEssais(tabRecap, difficulty, essai);
             EssaisToBuff(tabRecap, difficulty, essai, tampon);
             printf("%s", tampon);
-
+            
             essai++;
             if (essai == 20 || bienPlace == difficulty) {
                 if (essai == 20) {
