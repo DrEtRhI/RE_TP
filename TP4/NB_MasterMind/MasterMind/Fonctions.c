@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 #include "Fonctions.h"
 
 #define TOTALCOLOR 8;
@@ -45,8 +46,8 @@ void generationGameTableRepet(int *tab, int difficulty) {
     }
 }
 
-int verifierSaisie(){
-    
+int verifierSaisie() {
+
 }
 
 void evaluationEssai(int *tabComputer, int *tabUser, int *bienPlace, int *malPlace, int difficulte) {
@@ -90,6 +91,33 @@ void affichageEssais(tabRecap recap, int difficulte, int essai) {
         printf(", Mal placé(s) : %d\n", recap.malPlace[i]);
 
     }
+}
+// Vide le buffer et le rempli avec une chaine de caractère contenant toutes les informations de l'essai
+void EssaisToBuff(tabRecap recap, int difficulte, int essai, char* tampon) {
+    tampon = "";
+    char* temp = (char*) malloc (sizeof(char)*50);
+    
+    for (int i = 0; i <= essai; i++) {
+        for (int y = 0; y < difficulte; y++) {
+            if (y + 1 == difficulte) {
+                //printf("|%d|", recap.tabEssais[i][y]);
+                sprintf(temp, "|%d|", recap.tabEssais[i][y]);
+                strcat(tampon, temp);
+            } else {
+                //printf("|%d", recap.tabEssais[i][y]);
+                sprintf(temp, "|%d", recap.tabEssais[i][y]);
+                strcat(tampon, temp); // BUG ICI
+            }
+        }
+        //printf("  => Bien placé(s) : %d", recap.bienPlace[i]);
+        sprintf(temp, "  => Bien placé(s) : %d", recap.bienPlace[i]);
+        strcat(tampon, temp);
+        //printf(", Mal placé(s) : %d\n", recap.malPlace[i]);
+        sprintf(temp, ", Mal placé(s) : %d\n", recap.malPlace[i]);
+        strcat(tampon, temp);
+
+    }
+    free(temp);
 }
 
 /*
