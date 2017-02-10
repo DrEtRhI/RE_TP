@@ -7,11 +7,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 #include "Fonctions.h"
 
 #define TOTALCOLOR 8;
 
 // Generation du tableau de couleur à trouver SANS possibilité de répétition de couleur.
+
+char* tableauCouleur[] = {"bleu", "rouge", "blanc", "noir", "vert", "jaune", "orange", "violet"};
 
 void generationGameTableNoRepet(int *tab, int difficulty) {
     srand(time(NULL));
@@ -45,8 +48,8 @@ void generationGameTableRepet(int *tab, int difficulty) {
     }
 }
 
-int verifierSaisie(){
-    
+int verifierSaisie() {
+
 }
 
 void evaluationEssai(int *tabComputer, int *tabUser, int *bienPlace, int *malPlace, int difficulte) {
@@ -89,6 +92,24 @@ void affichageEssais(tabRecap recap, int difficulte, int essai) {
         printf("  => Bien placé(s) : %d", recap.bienPlace[i]);
         printf(", Mal placé(s) : %d\n", recap.malPlace[i]);
 
+    }
+}
+
+void choixCombinaison(int *userChoiceInt, int difficulte) {
+    char choixCouleur[10];
+    for (int z = 0; z < difficulte; z++) {
+        int res = 1;
+        int OK = 0;
+        while (res != 0) {
+            printf("Choissez vos couleurs parmis bleu, rouge, blanc, noir, vert, jaune, orange, violet :\n");
+            scanf("%s", choixCouleur);
+            for (int i = 0; i < strlen(*tableauCouleur); i++) {
+                if ((res = strcmp(choixCouleur, tableauCouleur[i])) == 0) {
+                    userChoiceInt[z] = res;
+                    break;
+                }
+            }
+        }
     }
 }
 

@@ -73,13 +73,15 @@ int main(int argc, char** argv) {
             int bienPlace = 0;
             int malPlace = 0;
 
+/*
             printf("Choissez vos couleurs parmis bleu, rouge, blanc, noir, vert, jaune, orange, violet :\n");
 
             for (int i = 0; i < difficulty; i++) {
                 printf("Entrez la couleur %d : ", i + 1);
                 scanf("%d", &userChoiceInt[i]);
             }
-
+*/
+            choixCombinaison(userChoiceInt, difficulty);
             evaluationEssai(computerChoice, userChoiceInt, &bienPlace, &malPlace, difficulty);
 
             // recopie de l'essai dans le tableau récapitulatif :

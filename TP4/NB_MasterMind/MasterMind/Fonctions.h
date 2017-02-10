@@ -34,6 +34,7 @@ extern "C" {
     void generationGameTableRepet(int *tab, int difficulty);
     void evaluationEssai(int *tabComputer, int *tabUser, int *bienPlace, int *malPlace, int difficulte);
     void affichageEssais(tabRecap, int, int);
+    void choixCombinaison(int *userChoiceInt, int difficulte);
 
 #ifdef __cplusplus
 }
