@@ -12,7 +12,7 @@
 
 
 #include <stdio.h>
-#include <curses.h> 		/* Primitives de gestion d'ï¿½cran */
+#include <curses.h> 		/* Primitives de gestion d'Žcran */
 #include <sys/signal.h>
 #include <sys/wait.h>
 #include<stdlib.h>
@@ -77,11 +77,9 @@ void client_appli (char *serveur,char *service)
 	struct sockaddr_in *p_adr_socket, *p_adr_client;
 	pid_t p;
 
-	//char tampon[NB_OCTETS];
-	char *tampon;
-        tampon = (char*) malloc (NB_OCTETS * sizeof(char));
+	char tampon[NB_OCTETS];
 	
-	/*Crï¿½ation de la socket protocole internet et mode de connection*/
+	/*Création de la socket protocole internet et mode de connection*/
 	idSocket = h_socket(AF_INET, SOCK_STREAM);
 	
 	/*Affectation de la structure sockaddr_in*/
@@ -95,7 +93,7 @@ void client_appli (char *serveur,char *service)
 	
 	readClient = h_reads(idSocket, tampon, NB_OCTETS);
 	printf("%s", tampon);
-	scanf("%s", tampon);
+	scanf("%s", &tampon);
 	writeClient = h_writes(idSocket, tampon, NB_OCTETS);
 
 

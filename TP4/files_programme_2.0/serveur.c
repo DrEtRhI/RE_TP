@@ -22,7 +22,7 @@
 #include "fon.h"     		/* Primitives de la boite a outils */
 
 #define SERVICE_DEFAUT "1111"
-#define NB_REQ_MAX 10 			/* Nombre maximum de requï¿½te dans la file d'attente du serveur*/
+#define NB_REQ_MAX 10 			/* Nombre maximum de requête dans la file d'attente du serveur*/
 #define NB_OCTETS 1000      /* Taille du tampon */
 
 void serveur_appli (char *service);   /* programme serveur */
@@ -52,7 +52,7 @@ int main(int argc,char *argv[])
 		  exit(1);
  	}
 
-	/* service est le service (ou numï¿½ro de port) auquel sera affectï¿½
+	/* service est le service (ou numŽro de port) auquel sera affectŽ
 	ce serveur*/
 
 	serveur_appli(service);
@@ -68,11 +68,9 @@ void serveur_appli(char *service)
 	int idSocket, idSocketAccept, writeServeur, readServeur;
 	struct sockaddr_in *p_adr_socket, *p_adr_client;
 	pid_t p;
-	//char tampon[NB_OCTETS];
-        char *tampon;
-        tampon = (char*) malloc (NB_OCTETS * sizeof(char));
-        
-	/*Crï¿½ation de la socket protocole internet et mode de connection*/
+	char tampon[NB_OCTETS];
+
+	/*Création de la socket protocole internet et mode de connection*/
 	idSocket = h_socket(AF_INET, SOCK_STREAM);
 
 	/*Affectation de la structure sockaddr_in*/
@@ -81,7 +79,7 @@ void serveur_appli(char *service)
 	/*Association de la socket avec ses adresses*/
 	h_bind(idSocket, p_adr_socket);
 
-	/* Mise en ï¿½coute de la socket pour 10 requï¿½tes max*/
+	/* Mise en écoute de la socket pour 10 requêtes max*/
 	h_listen(idSocket, NB_REQ_MAX);
 
 	while(1){
@@ -91,9 +89,9 @@ void serveur_appli(char *service)
 		p = fork();
 		if (p == 0){
 			h_close(idSocket); /*Fermeture de la socket passive*/
-			
 
-			/* Dï¿½but de la partie */
+
+			/* Début de la partie */
 			strcpy(tampon, "Bienvenue sur MASTERMIND !!\n\nCombien de couleurs voulez vous jouer ? (min 4 max 8) :\n");
 			writeServeur = h_writes(idSocketAccept, tampon, NB_OCTETS);
 			readServeur = h_reads(idSocketAccept, tampon, NB_OCTETS);
