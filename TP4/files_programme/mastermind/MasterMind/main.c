@@ -15,6 +15,8 @@
 #include <stdlib.h>
 #include "Fonctions.h"
 
+
+
 /*
  * 
  */
@@ -27,7 +29,7 @@ int main(int argc, char** argv) {
     int *computerChoice;
     int difficulty = 0;
     int newParty = 0;
-
+    tabRecap tabRecap;
 
 
     printf("Bienvenue sur MASTERMIND !!\n\n\n");
@@ -41,7 +43,7 @@ int main(int argc, char** argv) {
     printf("Bonne chance !!!\n\n\n\n");
 
     while (newParty == 0) {
-        
+
         while (!(difficulty >= 4 && difficulty <= 7)) {
             printf("Choisissez la difficulté (4 à 7 couleurs) : ");
             scanf("%d", &difficulty);
@@ -52,9 +54,19 @@ int main(int argc, char** argv) {
         computerChoice = (int*) malloc(difficulty * sizeof (int));
 
         // pour la génération de nombre aléatoire
-        GenerationGameTableNoRepet(computerChoice, difficulty);
+        generationGameTableRepet(computerChoice, difficulty);
+
+        // ********** Pour le TEST, affichage du computerTab au début de la partie. **********
+        for (int i = 0; i < difficulty; i++) {
+            if (i + 1 == difficulty) {
+                printf("|%d|\n", computerChoice[i]);
+            } else {
+                printf("|%d", computerChoice[i]);
+            }
+        }
 
         printf("\n\nVous avez 20 essai maximum pour trouver la bonne combinaison\n");
+
         int essai = 0;
 
         while (essai < 20) {
@@ -64,11 +76,21 @@ int main(int argc, char** argv) {
             printf("Choissez vos couleurs parmis bleu, rouge, blanc, noir, vert, jaune, orange, violet :\n");
 
             for (int i = 0; i < difficulty; i++) {
-                printf("Entrez la couleur %d :\n", i + 1);
+                printf("Entrez la couleur %d : ", i + 1);
                 scanf("%d", &userChoiceInt[i]);
             }
-            EvaluationEssai(computerChoice, userChoiceInt, &bienPlace, &malPlace, difficulty);
-            AffichageEssai(userChoiceInt, bienPlace, malPlace, difficulty);
+
+            evaluationEssai(computerChoice, userChoiceInt, &bienPlace, &malPlace, difficulty);
+
+            // recopie de l'essai dans le tableau récapitulatif :
+            for (int i = 0; i < difficulty; i++) {
+                tabRecap.tabEssais[essai][i] = userChoiceInt[i];
+            }
+            tabRecap.malPlace[essai] = malPlace;
+            tabRecap.bienPlace[essai] = bienPlace;
+            
+            affichageEssais(tabRecap, difficulty, essai);
+
             essai++;
             if (essai == 20 || bienPlace == difficulty) {
                 if (essai == 20) {
@@ -82,14 +104,16 @@ int main(int argc, char** argv) {
                         }
                     }
                 } else {
-                        printf("\n\n FELICITATION, vous avez trouvé la bonne combinaison\n");
-                        essai = 20;
-                    
+                    printf("\n\n FELICITATION, vous avez trouvé la bonne combinaison\n");
+                    essai = 20;
+
                 }
                 printf("Souhaitez-vous refaire une partie ?? (Non = 1, Oui = 0)\n");
                 scanf("%d", &newParty);
-            } 
+            }
         }
+        free(computerChoice); // Pas sur que ce soit obligatoire...
+        free(userChoiceInt);
     }
     return (EXIT_SUCCESS);
 }
