@@ -36,7 +36,7 @@ extern "C" {
     void affichageEssais(tabRecap, int, int);
     void choixCombinaison(int *userChoiceInt, int difficulte);
     void EssaisToBuff(tabRecap, int, int, char*);
-    void afficherPartiePerdu(int, int*);
+    void afficherPartiePerdue(int, int*, char*);
 
 #ifdef __cplusplus
 }

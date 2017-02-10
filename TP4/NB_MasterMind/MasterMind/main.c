@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Fonctions.h"
-#define NB_OCTETS 1000
+#define NB_OCTETS 10000
 #define NB_ESSAIS 20
 
 /*
@@ -22,9 +22,6 @@
  */
 int main(int argc, char** argv) {
 
-    typedef enum {
-        BLEU, ROUGE, BLANC, NOIR, VERT, JAUNE, ORANGE, VIOLET
-    } Color;
     int *userChoiceInt;
     int *computerChoice;
     int difficulty = 0;
@@ -98,7 +95,8 @@ int main(int argc, char** argv) {
             essai++;
             if (essai == NB_ESSAIS || bienPlace == difficulty) {
                 if (essai == NB_ESSAIS) {
-                    afficherPartiePerdue(difficulty, computerChoice);
+                    afficherPartiePerdue(difficulty, computerChoice, tampon);
+                    printf("%s", tampon);
                 } else {
                     printf("\n\n FELICITATION, vous avez trouvé la bonne combinaison\n");
                     essai = NB_ESSAIS;

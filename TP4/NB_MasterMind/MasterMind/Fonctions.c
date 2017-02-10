@@ -50,9 +50,6 @@ void generationGameTableRepet(int *tab, int difficulty) {
     }
 }
 
-int verifierSaisie() {
-
-}
 
 void evaluationEssai(int *tabComputer, int *tabUser, int *bienPlace, int *malPlace, int difficulte) {
     // Copie du tableau-Computer pour remplacer les couleurs traitées par -1 par la suite. Cela évite un double traitement.
@@ -111,7 +108,7 @@ void EssaisToBuff(tabRecap recap, int difficulte, int essai, char* tampon) {
             } else {
                 //printf("|%d", recap.tabEssais[i][y]);
                 sprintf(temp, "|%s", tableauCouleurAffichage[recap.tabEssais[i][y]]);
-                strcat(tampon, temp); // BUG ICI
+                strcat(tampon, temp); 
             }
         }
         //printf("  => Bien placé(s) : %d", recap.bienPlace[i]);
@@ -137,9 +134,9 @@ void choixCombinaison(int *userChoiceInt, int difficulte) {
             printf("\nChoissez vos couleurs parmis bleu, rouge, blanc, noir, vert, jaune, orange, violet :\n");
             printf("Couleur numero %d : ", z + 1); // ajout de ce printf pour savoir où on en est.
             scanf("%s", choixCouleur);
-            for (int i = 0; i < 8; i++) { // ici tu avais mis tant que i < strlen(*tableauCouleur)... alors que c'est i< nbCouleur = 8. La valeur était 4 car strlen de "bleu" est 4 ^^
+            for (int i = 0; i < 8; i++) { 
                 if ((res = strcmp(choixCouleur, tableauCouleur[i])) == 0) {
-                    userChoiceInt[z] = i; // ici tu avais mis = res... donc quand c'est une couleur valide, dans le tableau de int il y avait un 0... donc toujours 0.
+                    userChoiceInt[z] = i; 
                     break;
                 }
             }
@@ -149,17 +146,27 @@ void choixCombinaison(int *userChoiceInt, int difficulte) {
 }
 
 // Fonction pour afficher le message de fin... a faire avec le tampon au lieu des printf.
-void afficherPartiePerdue(int difficulty, int *computerChoice) {
-    printf("Désolé vous avez perdu !!\n");
-    printf("La bonne combinaison était : \n");
+void afficherPartiePerdue(int difficulty, int *computerChoice, char* tampon) {
+    strcpy(tampon, "");
+    char* temp = (char*) malloc(sizeof (char)*50);
+    //printf("Désolé vous avez perdu !!\n");
+    //printf("La bonne combinaison était : \n");
+    sprintf(temp, "\n\n\nDésolé vous avez perdu !!\nLa bonne combinaison était : \n");
+    strcat(tampon, temp);
     for (int i = 0; i < difficulty; i++) {
         if (i + 1 == difficulty) {
-            printf("|%s|", tableauCouleurAffichage[computerChoice[i]]);
+            //printf("|%s|", tableauCouleurAffichage[computerChoice[i]]);
+            sprintf(temp, "|%s|", tableauCouleurAffichage[computerChoice[i]]);
+            strcat(tampon, temp);
         } else {
-            printf("|%s", tableauCouleurAffichage[computerChoice[i]]);
+            //printf("|%s", tableauCouleurAffichage[computerChoice[i]]);
+            sprintf(temp, "|%s", tableauCouleurAffichage[computerChoice[i]]);
+            strcat(tampon, temp);
         }
     }
-    printf("\n\n");
+    //printf("\n\n");
+    sprintf(temp, "\n\n");
+    strcat(tampon, temp);
 }
 
 /*
