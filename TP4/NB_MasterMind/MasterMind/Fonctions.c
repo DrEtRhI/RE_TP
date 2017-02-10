@@ -15,6 +15,8 @@
 // Generation du tableau de couleur à trouver SANS possibilité de répétition de couleur.
 
 char* tableauCouleur[] = {"bleu", "rouge", "blanc", "noir", "vert", "jaune", "orange", "violet"};
+// ajout d'un tableau identique avec espace en plus afin d'afficher en console des cases de taille égale quelquesoit la couleur choisie.
+char* tableauCouleurAffichage[] = {"bleu  ", "rouge ", "blanc ", "noir  ", "vert  ", "jaune ", "orange", "violet"};
 
 void generationGameTableNoRepet(int *tab, int difficulty) {
     srand(time(NULL));
@@ -95,19 +97,20 @@ void affichageEssais(tabRecap recap, int difficulte, int essai) {
     }
 }
 // Vide le buffer et le rempli avec une chaine de caractère contenant toutes les informations de l'essai
+
 void EssaisToBuff(tabRecap recap, int difficulte, int essai, char* tampon) {
     strcpy(tampon, "");
-    char* temp = (char*) malloc (sizeof(char)*50);
-    
+    char* temp = (char*) malloc(sizeof (char)*50);
+
     for (int i = 0; i <= essai; i++) {
         for (int y = 0; y < difficulte; y++) {
             if (y + 1 == difficulte) {
                 //printf("|%d|", recap.tabEssais[i][y]);
-                sprintf(temp, "|%d|", recap.tabEssais[i][y]);
+                sprintf(temp, "|%s|", tableauCouleurAffichage[recap.tabEssais[i][y]]);
                 strcat(tampon, temp);
             } else {
                 //printf("|%d", recap.tabEssais[i][y]);
-                sprintf(temp, "|%d", recap.tabEssais[i][y]);
+                sprintf(temp, "|%s", tableauCouleurAffichage[recap.tabEssais[i][y]]);
                 strcat(tampon, temp); // BUG ICI
             }
         }
@@ -115,7 +118,10 @@ void EssaisToBuff(tabRecap recap, int difficulte, int essai, char* tampon) {
         sprintf(temp, "  => Bien placé(s) : %d", recap.bienPlace[i]);
         strcat(tampon, temp);
         //printf(", Mal placé(s) : %d\n", recap.malPlace[i]);
-        sprintf(temp, ", Mal placé(s) : %d\n", recap.malPlace[i]);
+        sprintf(temp, ", Mal placé(s) : %d", recap.malPlace[i]);
+        strcat(tampon, temp);
+        
+        sprintf(temp,"    Essai numero : %d\n", i+1);
         strcat(tampon, temp);
 
     }
@@ -128,16 +134,32 @@ void choixCombinaison(int *userChoiceInt, int difficulte) {
         int res = 1;
         int OK = 0;
         while (res != 0) {
-            printf("Choissez vos couleurs parmis bleu, rouge, blanc, noir, vert, jaune, orange, violet :\n");
+            printf("\nChoissez vos couleurs parmis bleu, rouge, blanc, noir, vert, jaune, orange, violet :\n");
+            printf("Couleur numero %d : ", z + 1); // ajout de ce printf pour savoir où on en est.
             scanf("%s", choixCouleur);
-            for (int i = 0; i < strlen(*tableauCouleur); i++) {
+            for (int i = 0; i < 8; i++) { // ici tu avais mis tant que i < strlen(*tableauCouleur)... alors que c'est i< nbCouleur = 8. La valeur était 4 car strlen de "bleu" est 4 ^^
                 if ((res = strcmp(choixCouleur, tableauCouleur[i])) == 0) {
-                    userChoiceInt[z] = res;
+                    userChoiceInt[z] = i; // ici tu avais mis = res... donc quand c'est une couleur valide, dans le tableau de int il y avait un 0... donc toujours 0.
                     break;
                 }
             }
+            if (res != 0) printf("La couleur %s n'est pas une couleur valide.\n", choixCouleur); // message pour recommencer la saisie.
         }
     }
+}
+
+// Fonction pour afficher le message de fin... a faire avec le tampon au lieu des printf.
+void afficherPartiePerdue(int difficulty, int *computerChoice) {
+    printf("Désolé vous avez perdu !!\n");
+    printf("La bonne combinaison était : \n");
+    for (int i = 0; i < difficulty; i++) {
+        if (i + 1 == difficulty) {
+            printf("|%s|", tableauCouleurAffichage[computerChoice[i]]);
+        } else {
+            printf("|%s", tableauCouleurAffichage[computerChoice[i]]);
+        }
+    }
+    printf("\n\n");
 }
 
 /*
