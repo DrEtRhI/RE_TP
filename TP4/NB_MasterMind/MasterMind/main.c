@@ -18,7 +18,8 @@
 #define NB_ESSAIS 20
 
 /*
- * 
+ * Pour la version serveur-client, transformer ce code en une fonction
+ * la fonction devra prendre en paramètre le tampon définie dans serveur-client
  */
 int main(int argc, char** argv) {
 

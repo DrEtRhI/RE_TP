@@ -67,7 +67,7 @@ void evaluationEssai(int *tabComputer, int *tabUser, int *bienPlace, int *malPla
         }
     }
     // Evalutation des couleurs mal placées.
-    // ---> Si la couleur est mal placée, incrémentation de la variable malPlacee et remplacement dans copyTab par -1.
+    // --> Si la couleur est mal placée, incrémentation de la variable malPlacee et remplacement dans copyTab par -1.
     for (int i = 0; i < difficulte; i++) {
         for (int z = 0; z < difficulte; z++) {
             if (copyTab[i] == tabUser[z]) { // Ici, pas besoin de vérifier i == z car ce cas est traité précédement. (remplacement par -1).
