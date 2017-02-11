@@ -12,7 +12,7 @@
 
 
 #include <stdio.h>
-#include <curses.h> 		/* Primitives de gestion d'�cran */
+//#include <curses.h> 		/* Primitives de gestion d'�cran */
 #include <sys/signal.h>
 #include <sys/wait.h>
 #include<stdlib.h>
