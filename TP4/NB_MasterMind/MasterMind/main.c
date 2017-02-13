@@ -14,17 +14,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Fonctions.h"
-#define NB_OCTETS 1000
-
+#define NB_OCTETS 10000
+#define NB_ESSAIS 20
 
 /*
- * 
+ * Pour la version serveur-client, transformer ce code en une fonction
+ * la fonction devra prendre en paramètre le tampon définie dans serveur-client
  */
 int main(int argc, char** argv) {
 
-    typedef enum {
-        BLEU, ROUGE, BLANC, NOIR, VERT, JAUNE, ORANGE, VIOLET
-    } Color;
     int *userChoiceInt;
     int *computerChoice;
     int difficulty = 0;
@@ -66,21 +64,23 @@ int main(int argc, char** argv) {
             }
         }
 
-        printf("\n\nVous avez 20 essai maximum pour trouver la bonne combinaison\n");
+        printf("\n\nVous avez %d essai maximum pour trouver la bonne combinaison\n", NB_ESSAIS);
 
         int essai = 0;
 
-        while (essai < 20) {
+        while (essai < NB_ESSAIS) {
             int bienPlace = 0;
             int malPlace = 0;
 
+/*
             printf("Choissez vos couleurs parmis bleu, rouge, blanc, noir, vert, jaune, orange, violet :\n");
 
             for (int i = 0; i < difficulty; i++) {
                 printf("Entrez la couleur %d : ", i + 1);
                 scanf("%d", &userChoiceInt[i]);
             }
-
+*/
+            choixCombinaison(userChoiceInt, difficulty);
             evaluationEssai(computerChoice, userChoiceInt, &bienPlace, &malPlace, difficulty);
 
             // recopie de l'essai dans le tableau récapitulatif :
@@ -90,25 +90,17 @@ int main(int argc, char** argv) {
             tabRecap.malPlace[essai] = malPlace;
             tabRecap.bienPlace[essai] = bienPlace;
             
-            //affichageEssais(tabRecap, difficulty, essai);
             EssaisToBuff(tabRecap, difficulty, essai, tampon);
-            printf("%s", tampon);
-
+            printf("%s", tampon); // Cette fonction sera remplacée par un write dans la version reseau.
+            
             essai++;
-            if (essai == 20 || bienPlace == difficulty) {
-                if (essai == 20) {
-                    printf("Désolé vous avez perdu !!\n");
-                    printf("La bonne combinaison était : \n");
-                    for (int i = 0; i < difficulty; i++) {
-                        if (i + 1 == difficulty) {
-                            printf("|%d|", computerChoice[i]);
-                        } else {
-                            printf("|%d", computerChoice[i]);
-                        }
-                    }
+            if (essai == NB_ESSAIS || bienPlace == difficulty) {
+                if (essai == NB_ESSAIS) {
+                    afficherPartiePerdue(difficulty, computerChoice, tampon);
+                    printf("%s", tampon);
                 } else {
                     printf("\n\n FELICITATION, vous avez trouvé la bonne combinaison\n");
-                    essai = 20;
+                    essai = NB_ESSAIS;
 
                 }
                 printf("Souhaitez-vous refaire une partie ?? (Non = 1, Oui = 0)\n");
