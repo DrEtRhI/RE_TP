@@ -15,14 +15,15 @@
 //#include <curses.h> 		/* Primitives de gestion d'�cran */
 #include <sys/signal.h>
 #include <sys/wait.h>
-#include<stdlib.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "fon.h"   		/* primitives de la boite a outils */
 
 #define SERVICE_DEFAUT "1111"
 #define SERVEUR_DEFAUT "localhost"
 
-#define NB_OCTETS 1000      /* Taille du tampon */
+#define NB_OCTETS 10000      /* Taille du tampon */
 
 void client_appli (char *serveur, char *service);
 
@@ -91,13 +92,18 @@ void client_appli (char *serveur,char *service)
 	h_connect(idSocket, p_adr_socket);
 	
 
-	/* read */
-	
+	/* Description des règles du jeu */
 	readClient = h_reads(idSocket, tampon, NB_OCTETS);
 	printf("%s", tampon);
-	scanf("%s", tampon);
-	writeClient = h_writes(idSocket, tampon, NB_OCTETS);
-
+	/* Partie en cours */
+	while(1){
+		readClient = h_reads(idSocket, tampon, NB_OCTETS);
+		if (strcmp(tampon, "fin") == 0) break;
+		printf("%s", tampon);
+		scanf("%s", tampon);
+		writeClient = h_writes(idSocket, tampon, NB_OCTETS);
+	}
+	h_close(idSocket);
 
  }
 

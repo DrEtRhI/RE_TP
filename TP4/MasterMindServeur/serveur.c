@@ -20,10 +20,11 @@
 #include<string.h>
 
 #include "fon.h"     		/* Primitives de la boite a outils */
+#include "masterMind.h"
 
 #define SERVICE_DEFAUT "1111"
 #define NB_REQ_MAX 10 			/* Nombre maximum de requ�te dans la file d'attente du serveur*/
-#define NB_OCTETS 1000      /* Taille du tampon */
+#define NB_OCTETS 10000      /* Taille du tampon */
 
 void serveur_appli (char *service);   /* programme serveur */
 
@@ -94,10 +95,7 @@ void serveur_appli(char *service)
 			
 
 			/* D�but de la partie */
-			strcpy(tampon, "Bienvenue sur MASTERMIND !!\n\nCombien de couleurs voulez vous jouer ? (min 4 max 8) :\n");
-			writeServeur = h_writes(idSocketAccept, tampon, NB_OCTETS);
-			readServeur = h_reads(idSocketAccept, tampon, NB_OCTETS);
-			printf("%s", tampon);
+			masterMind(idSocketAccept);
 			h_close(idSocketAccept);
 			exit(0);
 		}else{
