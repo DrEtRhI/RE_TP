@@ -1,0 +1,3 @@
+gcc -c fon.c
+gcc -c  client.c
+gcc fon.o client.o -o client

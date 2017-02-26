@@ -1,0 +1,4 @@
+gcc -c fon.c
+gcc -c  serveur.c	
+gcc -c masterMind.c
+gcc fon.o serveur.o masterMind.o -o serveur
